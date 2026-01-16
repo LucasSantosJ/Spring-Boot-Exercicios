@@ -2,7 +2,6 @@ package inicio.spring_boot_aula1.controller;
 
 import inicio.spring_boot_aula1.domain.Anime;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -16,7 +15,7 @@ public class AnimeController {
     }
 
     @GetMapping("nome")
-    public List<Anime> listnome(@RequestParam (required = false) String name) {
+    public List<Anime> listName(@RequestParam (required = false) String name) {
         var animes = Anime.getAnimes();
         if (animes.isEmpty()) {return animes;}
         return animes.stream().filter(anime -> anime.getName().equalsIgnoreCase(name)).toList();

@@ -1,8 +1,9 @@
 package inicio.spring_boot_aula1.domain;
 
+import org.mapstruct.Builder;
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 public class Producer {
 
@@ -10,21 +11,16 @@ public class Producer {
     //@JsonProperty("mudandoNome") notaçao faz com que na requisiçao mude o nome da variavel caso voce precise
     private String name;
     private LocalDateTime createdAt;
-    private static  List<Producer> producer = new ArrayList<>();
 
-    public Producer(String name, Long id) {
-        this.name = name;
-        this.id = id;
+   public Producer(Builder builder){
+        this.name = builder.name;
+        this.id = builder.id;
+        this.createdAt = builder.createdAt;
     }
 
-    public Producer() {
-    }
-
+    //somente geters para garantir a imutabilidade
     public Long getId() {
         return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
     }
     public String getName() {
         return name;
@@ -32,26 +28,45 @@ public class Producer {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+
+
+    public static class Builder {
+       private Long id;
+       private String name;
+       private LocalDateTime createdAt;
+
+       public Builder id(Long id) {
+           this.id = id;
+           return this; // Retorns o próprio builder para permitir o encadeamento
+       }
+       public Builder name(String name) {
+           this.name = name;
+           return this;
+       }
+       public Builder createdAt(LocalDateTime createdAt) {
+           this.createdAt = createdAt;
+           return this;
+       }
+
+       //metodo que cria o objeto Producer
+       public Producer build() {
+           return new Producer(this);
+       }
     }
-    public void setName(String name) {
-        this.name = name;
+    //metodo estático que facilita o inicio da criaçao
+    public static Builder builder() {
+        return new Builder();
     }
 
-    static {
-        var abacate = new Producer("Abacate", 1L);
-        var tomate = new Producer("Tomate", 2L);
-        var laranja = new Producer("Laranja", 3L);
-
-        producer.addAll(List.of(abacate,tomate,laranja));
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Producer producer = (Producer) o;
+        return Objects.equals(id, producer.id);
     }
 
-    public static List<Producer> getProducer() {
-        return producer;
-    }
-
-    public static void setProducer(List<Producer> producer) {
-        Producer.producer = producer;
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

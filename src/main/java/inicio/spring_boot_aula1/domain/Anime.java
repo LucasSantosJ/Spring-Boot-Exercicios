@@ -2,6 +2,7 @@ package inicio.spring_boot_aula1.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Anime {
 
@@ -39,7 +40,4 @@ public class Anime {
         return animes;
     }
 
-    public static void setAnimes(List<Anime> animes) {
-        Anime.animes = animes;
-    }
 }
