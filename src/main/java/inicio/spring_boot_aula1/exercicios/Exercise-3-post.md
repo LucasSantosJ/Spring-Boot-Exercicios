@@ -1,2 +1,0 @@
-Atualize o AnimeController Através da adição de um metodo que recebe um Anime JSON via POST, adiciona na lista existente de animes, e retorna o objeto criado. Restriçao: cCaso o id seja passado na requisiçao, ele deve ser ignorado..
-Gere um id aleatoriamente antes de adicionar o objeto na lista.

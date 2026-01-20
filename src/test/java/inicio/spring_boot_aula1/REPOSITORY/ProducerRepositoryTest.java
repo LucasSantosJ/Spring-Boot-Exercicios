@@ -1,4 +1,5 @@
 package inicio.spring_boot_aula1.REPOSITORY;
+
 import inicio.spring_boot_aula1.domain.Producer;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
@@ -78,7 +79,7 @@ class ProducerRepositoryTest {
     @DisplayName("save creates a producer")
     @Order(5)
     void saveCreatesProducer() {
-    BDDMockito.when(producerData.getProducers()).thenReturn(producerList);
+        BDDMockito.when(producerData.getProducers()).thenReturn(producerList);
 
         var producerToSave = Producer.builder().id(99L).name("macarrao").createdAt(LocalDateTime.now()).build();
         var producer = repository.save(producerToSave);
@@ -86,6 +87,41 @@ class ProducerRepositoryTest {
         Assertions.assertThat(producer).isEqualTo(producerToSave).hasNoNullFieldsOrProperties();
 
         var producerSavedOptional = repository.findById(producerToSave.getId());
-            Assertions.assertThat(producerSavedOptional).isPresent().contains(producerToSave);
+        Assertions.assertThat(producerSavedOptional).isPresent().contains(producerToSave);
     }
+
+    @Test
+    @DisplayName("delet removes a producer")
+    @Order(6)
+    void findByIdDelet() {
+        BDDMockito.when(producerData.getProducers()).thenReturn(producerList);
+
+        var producerToDelet = producerList.getFirst();
+        repository.delete(producerToDelet);
+
+        var producer = repository.findAll();
+
+        Assertions.assertThat(producer).isNotEmpty().doesNotContain(producerToDelet);
+    }
+
+    @Test
+    @DisplayName("aupdate a producer")
+    @Order(7)
+    void findByIdUpdate() {
+        BDDMockito.when(producerData.getProducers()).thenReturn(producerList);
+        var producerToUpdate = this.producerList.getFirst();
+
+        producerToUpdate.builder().id(3L).name("novo nonome").createdAt(LocalDateTime.now()).build();
+
+        repository.update(producerToUpdate);
+
+        Assertions.assertThat(this.producerList).contains(producerToUpdate);
+
+        var producerUpdatedOptional = repository.findById(producerToUpdate.getId());
+
+        Assertions.assertThat(producerUpdatedOptional).isPresent();
+        Assertions.assertThat(producerUpdatedOptional.get().getName()).isEqualTo(producerToUpdate.getName());
+    }
+
+
 }

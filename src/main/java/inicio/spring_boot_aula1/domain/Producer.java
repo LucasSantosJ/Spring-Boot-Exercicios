@@ -29,7 +29,6 @@ public class Producer {
         return createdAt;
     }
 
-
     public static class Builder {
        private Long id;
        private String name;

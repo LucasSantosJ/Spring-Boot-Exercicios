@@ -1,6 +1,5 @@
 package inicio.spring_boot_aula1.REPOSITORY;
 
-import inicio.spring_boot_aula1.domain.Anime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
