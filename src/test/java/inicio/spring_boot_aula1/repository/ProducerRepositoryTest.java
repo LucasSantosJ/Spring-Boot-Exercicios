@@ -1,4 +1,4 @@
-package inicio.spring_boot_aula1.REPOSITORY;
+package inicio.spring_boot_aula1.repository;
 
 import inicio.spring_boot_aula1.domain.Producer;
 import org.assertj.core.api.Assertions;
@@ -111,7 +111,7 @@ class ProducerRepositoryTest {
         BDDMockito.when(producerData.getProducers()).thenReturn(producerList);
         var producerToUpdate = this.producerList.getFirst();
 
-        producerToUpdate.builder().id(3L).name("novo nonome").createdAt(LocalDateTime.now()).build();
+        Producer.builder().id(3L).name("novo nonome").createdAt(LocalDateTime.now()).build();
 
         repository.update(producerToUpdate);
 

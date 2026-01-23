@@ -1,4 +1,4 @@
-package inicio.spring_boot_aula1.REPOSITORY;
+package inicio.spring_boot_aula1.repository;
 import inicio.spring_boot_aula1.domain.Producer;
 import org.springframework.stereotype.Component;
 

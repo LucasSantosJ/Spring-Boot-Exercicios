@@ -4,7 +4,7 @@ import inicio.spring_boot_aula1.DTO.request.ProducerPostRequest;
 import inicio.spring_boot_aula1.DTO.request.ProducerPutRequest;
 import inicio.spring_boot_aula1.DTO.response.ProducerGetResponse;
 import inicio.spring_boot_aula1.mapper.ProducerMapper;
-import inicio.spring_boot_aula1.SERVICES.ProducerService;
+import inicio.spring_boot_aula1.service.ProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;

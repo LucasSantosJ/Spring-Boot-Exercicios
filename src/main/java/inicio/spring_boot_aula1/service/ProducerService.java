@@ -1,7 +1,7 @@
-package inicio.spring_boot_aula1.SERVICES;
+package inicio.spring_boot_aula1.service;
 
 import inicio.spring_boot_aula1.domain.Producer;
-import inicio.spring_boot_aula1.REPOSITORY.ProducerRepository;
+import inicio.spring_boot_aula1.repository.ProducerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class ProducerService {
 
     public Producer findByIdOrNotFound(Long id) {
         return repository.findById(id)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "producer nao encontrado"));
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "producer not found"));
     }
 
     public Producer save(Producer producer) {
@@ -37,8 +37,9 @@ public class ProducerService {
     }
 
     public void update(Producer producerToUpdate) {
-        var producer =  Producer.builder()
-                .id(producerToUpdate.getId())
-                .name(producerToUpdate.getName()).build();
+        var producer = findByIdOrNotFound(producerToUpdate.getId());
+        producerToUpdate.setCreatedAt(producer.getCreatedAt());
+
+        repository.update(producerToUpdate);
     }
 }

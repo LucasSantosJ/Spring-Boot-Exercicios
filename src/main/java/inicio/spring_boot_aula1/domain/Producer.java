@@ -1,24 +1,30 @@
 package inicio.spring_boot_aula1.domain;
 
-import org.mapstruct.Builder;
-
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Producer {
 
-    private Long id;
+    private  Long id;
     //@JsonProperty("mudandoNome") notaçao faz com que na requisiçao mude o nome da variavel caso voce precise
     private String name;
-    private LocalDateTime createdAt;
+    private  LocalDateTime createdAt;
 
-   public Producer(Builder builder){
+    public Producer(Builder builder){
         this.name = builder.name;
         this.id = builder.id;
         this.createdAt = builder.createdAt;
     }
 
-    //somente geters para garantir a imutabilidade
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
     public Long getId() {
         return id;
     }
