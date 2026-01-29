@@ -5,9 +5,7 @@ import inicio.spring_boot_aula1.repository.ProducerRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -134,4 +132,29 @@ class ProducerServiceTest {
 
     }
 
+    @Test
+    @DisplayName("delet thorows ResponseSatutusException when producer is not found")
+    @Order(9)
+    void update_Updates_whenSuccessful() {
+        var producerToUpdate= producerList.getFirst();
+        producerToUpdate.setName("bananas maduras");
+
+        BDDMockito.when(repository.findById(producerToUpdate.getId())).thenReturn(Optional.of(producerToUpdate));
+        BDDMockito.doNothing().when(repository).update(producerToUpdate);
+
+        Assertions.assertThatException().isThrownBy(() -> service.update(producerToUpdate));
+    }
+
+    @Test
+    @DisplayName("delet thorows ResponseSatutusException when producer is not found")
+    @Order(10)
+    void update_ThorowsResponseSatutusException_WhenIsNotFound() {
+        var producerToUpdate = producerList.getFirst();
+
+        BDDMockito.when(repository.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.empty());
+
+        Assertions.assertThatException()
+                .isThrownBy(() -> service.update(producerToUpdate)).
+                isInstanceOf(ResponseStatusException.class);
+    }
 }
